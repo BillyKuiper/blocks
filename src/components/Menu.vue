@@ -23,11 +23,17 @@
           labelText="Products"/>
       </ul>
     </div>
-    <form class="form-inline">
+    <form class="form-inline" v-if="!this.logedIn">
       <MenuItem
       @click="loginClicked()"
       class="item"/>
     </form>
+    <div v-else>
+      <form class="form-inline">
+        {{email}}
+        <button class="btn btn-danger" @click="logout">Logout</button>
+      </form>
+    </div>
     <Shoppingcart
     :shoppingCart="cart"
     />
@@ -40,10 +46,16 @@ import Shoppingcart from "../components/Shoppingcart.vue";
 
 export default {
   props:{
-    cart: Object
+    cart: Object,
+    logedIn: Boolean,
+    email: String
   },
   components: { Shoppingcart, MenuItem },
   methods: {
+    logout(){
+      localStorage.clear();
+      this.logedIn = false;
+    },
     homeClicked () {
       this.$router.push('/')
     },

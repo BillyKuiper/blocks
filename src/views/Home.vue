@@ -42,34 +42,16 @@
         />
       </div>
     </div>
-
     <div class="row" style="border: 1px">
-      <div class="col-3">
+      <div class="col-3" v-for="post in homeProducts">
         <ProductCard
-            ProductImage="emerald.png"
-            ProductDescription="Shiny as ever"
-            ProductTitle="Emeralds"
-        />
-      </div>
-      <div class="col-3">
-        <ProductCard
-            ProductImage="gold.png"
-            ProductDescription="Pure Gold."
-            ProductTitle="Gold"
-        />
-      </div>
-      <div class="col-3">
-        <ProductCard
-            ProductImage="coal.png"
-            ProductDescription="Got BBQ?"
-            ProductTitle="Coal"
-        />
-      </div>
-      <div class="col-3">
-        <ProductCard
-            ProductImage="water.png"
-            ProductDescription="Water that flows within one m3!"
-            ProductTitle="H2O"
+            @add-to-shoppingcart="addShoppingCart(product)"
+            :ProductImage="post.productImage"
+            :ProductDescription="post.productDescription"
+            :ProductTitle="post.productName"
+            :ProductAddingDate="post.productAddingDate"
+            :ProductPrice="post.productPrice"
+            :ProductId="post.productId"
         />
       </div>
     </div>
@@ -84,6 +66,11 @@ import axios from "axios";
 
 export default {
   name: "Home",
+  data(){
+    return{
+      homeProducts: []
+    }
+  },
   props:{
     posts: []
   },
@@ -94,13 +81,18 @@ export default {
   },
   methods:{
     getPosts(){
-      //Work in Progress
-      axios.get('https://localhost:44387/product')
+      axios.get('https://localhost:44387/product/home')
           .then((response) => {
-            this.posts = response.data
+            this.homeProducts = response.data
           })
+    },
+    addShoppingCart(product){
+      this.$emit('setProductInCart', product);
     }
-  }
+  },
+  created: function(){
+    this.getPosts()
+  },
 }
 </script>
 

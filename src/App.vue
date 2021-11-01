@@ -1,9 +1,12 @@
 <template>
   <Menu
       :cart="Cart"
+      :logedIn="logedIn"
+      :email="email"
   />
   <router-view
   v-on:setProductInCart="setShoppingCart"
+  v-on:login="login"
   />
   <Footer/>
 </template>
@@ -20,11 +23,20 @@ export default {
   data(){
     return{
       Cart: [],
+      TotalPrice: Number,
+      logedIn: false,
+      email: ''
     }
   },
   methods:{
     setShoppingCart(product){
       this.Cart.push(product);
+    },
+    login(data){
+      localStorage.setItem('token',data.token);
+      this.logedIn = true;
+      this.email = data.email;
+      this.$router.push("/");
     }
   }
 }

@@ -34,6 +34,13 @@ const routes = [
     name: 'Products',
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/Product.vue')}
+  },
+  {
+    path: '/productsdetail',
+    name: 'Product Overview',
+    component: function () {
+      return import(/* webpackChunkName: "about" */ '../views/ProductDetail.vue')},
+    props: true
   }
 ]
 

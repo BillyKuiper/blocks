@@ -1,10 +1,9 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <form>
-        <FormTextInput/>
-        <PasswordInput/>
-        <CheckboxInput/>
+      <form @submit.prevent="loginData">
+        <FormTextInput v-on:emailData="setEmail"/>
+        <PasswordInput v-on:passwordData="setPassword"/>
         <SubmitButton/>
       </form>
     </div>
@@ -19,11 +18,27 @@ import SubmitButton from '@/components/LoginForm/SubmitButton'
 
 export default {
   name: 'Card',
+  data(){
+    return{
+      email: null,
+      password: null
+    }
+  },
   components: {
     FormTextInput,
     PasswordInput,
-    CheckboxInput,
     SubmitButton
+  },
+  methods:{
+    setEmail(emailData){
+      this.email = emailData
+    },
+    setPassword(passwordData){
+      this.password = passwordData
+    },
+    loginData(){
+      this.$emit("loginData", this.email, this.password);
+    }
   }
 }
 </script>

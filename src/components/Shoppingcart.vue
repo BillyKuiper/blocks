@@ -1,9 +1,12 @@
 <template>
   <div class="shoppingcart">
-    <img class="shoppingcart-icon" src="../assets/shopping-cart.png" alt="ShoppingCart" data-toggle="modal" data-target="#exampleModal">
+    <a class="btn btn-light">
+      <img @click="calculateTotalCart" class="shoppingcart-icon" src="../assets/shopping-cart.png" alt="ShoppingCart" data-toggle="modal" data-target="#exampleModal">
+      {{shoppingCart.length}}
+    </a>
   </div>
 
-    <div class="modal left fade" id="exampleModal" tabindex="" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div @click.self="closeModal()" class="modal left fade" id="exampleModal" tabindex="" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-body">
@@ -24,9 +27,19 @@
                 <td>{{product.productPrice}}</td>
                 <td>1</td>
               </tr>
+              <tr>
+                <td></td>
+                <td>Items: {{shoppingCart.length}}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Price: </td>
+              </tr>
               </tbody>
             </table>
-
+            <div v-if="shoppingCart.length">
+              <button class="btn btn-success">Checkout</button>
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -41,8 +54,29 @@
 
 export default {
   name: 'Shoppingcart',
+  data(){
+    return{
+      totalPriceCart: Number,
+      show: false
+    }
+  },
   props:{
-    shoppingCart : []
+    shoppingCart : [],
+  },
+  computed:{
+    calculateTotalCart(){
+      this.show = true;
+      for ( let i = 0; i < this.shoppingCart.length; i++){
+        this.totalPriceCart += this.shoppingCart[i].productPrice + this.totalPriceCart;
+        console.log(i);
+      }
+    }
+  },
+  methods:{
+    closeModal(){
+      this.show = false
+      console.log(this.show);
+    },
   }
 }
 </script>
