@@ -21,11 +21,11 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="product in shoppingCart">
-                <td><img class="img-cart" :src="require('@/assets/' + product.productImage + '')" alt="Product Image"></td>
-                <td>{{product.productName}}</td>
-                <td>{{product.productPrice}}</td>
-                <td>1</td>
+              <tr v-for="item in shoppingCart">
+                <td><img class="img-cart" :src="require('@/assets/' + item.product.productImage + '')" alt="Product Image"></td>
+                <td>{{item.product.productName}}</td>
+                <td>{{item.product.productPrice}}</td>
+                <td>{{item.amount}}</td>
               </tr>
               <tr>
                 <td></td>
@@ -33,12 +33,12 @@
               </tr>
               <tr>
                 <td></td>
-                <td>Price: </td>
+                <td>Price: {{totalPriceCart.toFixed(2)}}</td>
               </tr>
               </tbody>
             </table>
             <div v-if="shoppingCart.length">
-              <button class="btn btn-success">Checkout</button>
+              <button class="btn btn-success" @click="toOverview" data-dismiss="modal">Checkout</button>
             </div>
           </div>
           <div class="modal-footer">
@@ -56,27 +56,38 @@ export default {
   name: 'Shoppingcart',
   data(){
     return{
-      totalPriceCart: Number,
+      totalPriceCart: 1,
       show: false
     }
   },
   props:{
-    shoppingCart : [],
+    shoppingCart : []
   },
-  computed:{
-    calculateTotalCart(){
+  computed: {
+    totalPrice: Number,
+    calculateTotalCart() {
       this.show = true;
-      for ( let i = 0; i < this.shoppingCart.length; i++){
-        this.totalPriceCart += this.shoppingCart[i].productPrice + this.totalPriceCart;
-        console.log(i);
+      for (let i = 0; i < this.shoppingCart.length; i++) {
+        this.totalPriceCart = (this.shoppingCart[i].product.productPrice * this.shoppingCart[i].amount) + this.totalPriceCart;
       }
+      console.log(this.totalPriceCart);
     }
   },
   methods:{
     closeModal(){
-      this.show = false
-      console.log(this.show);
+      this.show = false;
     },
+    toOverview(){
+      this.$router.push(
+          {
+            name: "Shoppingcart",
+            params: {
+              shoppingCartJson: JSON.stringify(this.shoppingCart)
+            }
+          }
+      )
+
+    }
   }
 }
 </script>

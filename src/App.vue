@@ -7,6 +7,7 @@
   <router-view
   v-on:setProductInCart="setShoppingCart"
   v-on:login="login"
+  :logedIn="logedIn"
   />
   <Footer/>
 </template>
@@ -23,6 +24,7 @@ export default {
   data(){
     return{
       Cart: [],
+      CartComputed: [],
       TotalPrice: Number,
       logedIn: false,
       email: ''
@@ -30,7 +32,33 @@ export default {
   },
   methods:{
     setShoppingCart(product){
-      this.Cart.push(product);
+      //Elke keer als er een product toegevoegd wordt
+      //Kijk of product al bestaat
+      //zo niet, voeg normaal toe
+      //zo wel, voeg amount toe
+      //this.Cart.push(product)
+      const productCart = {product, amount:1};
+
+      if (this.Cart.length === 0){
+        this.Cart.push(productCart);
+        console.log("was leeg, nu niet meer");
+      }
+      else{
+        console.log("niet het eerste product")
+        for (let i = 0; i < this.Cart.length; i++) {
+          if (product.productId === this.Cart[i].product.productId){
+            console.log("was hetzelfde!");
+            //update hier amount
+            let objIndex = this.Cart.findIndex((obj => obj.product.productId == this.Cart[i].product.productId));
+            console.log(objIndex);
+            this.Cart[objIndex].amount++;
+            console.log(this.Cart);
+            return null;
+          }
+        }
+        this.Cart.push(productCart);
+      }
+
     },
     login(data){
       localStorage.setItem('token',data.token);

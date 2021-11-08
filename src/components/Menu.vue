@@ -46,7 +46,7 @@ import Shoppingcart from "../components/Shoppingcart.vue";
 
 export default {
   props:{
-    cart: Object,
+    cart: [],
     logedIn: Boolean,
     email: String
   },

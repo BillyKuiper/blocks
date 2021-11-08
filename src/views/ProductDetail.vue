@@ -71,7 +71,7 @@ export default {
       var obj = new Product(this.product[0].productId,this.product[0].productName, this.product[0].productPrice, this.product[0].productImage, this.product[0].productAddingDate, this.product[0].productDiscription);
       this.$emit('setProductInCart', obj);
     }
-    }
+  }
 }
 </script>
 
