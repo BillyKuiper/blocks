@@ -24,7 +24,7 @@
     </tr>
     </tbody>
   </table>
-  <button v-if="this.$root.logedIn" class="btn btn-success">Payment</button>
+  <button v-if="this.$root.logedIn" @click="confirmOrder" class="btn btn-success">Confirm Order</button>
 </template>
 
 <script>
@@ -33,11 +33,10 @@ export default {
   data(){
     return{
       shoppingCart: [],
-      totalPriceCart: 1
+      totalPriceCart: 0
     }
   },
   props:{
-    logedIn: Boolean,
     shoppingCartJson : ''
   },
   mounted() {
@@ -49,6 +48,16 @@ export default {
       for (let i = 0; i < this.shoppingCart.length; i++) {
         this.totalPriceCart = (this.shoppingCart[i].product.productPrice * this.shoppingCart[i].amount) + this.totalPriceCart;
       }
+    },
+    confirmOrder(){
+      this.$router.push(
+          {
+            name: "Order Overview",
+            params: {
+              shoppingCartJson: JSON.stringify(this.shoppingCart)
+            }
+          }
+      )
     }
   }
 

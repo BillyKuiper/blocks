@@ -56,7 +56,7 @@ export default {
   name: 'Shoppingcart',
   data(){
     return{
-      totalPriceCart: 1,
+      totalPriceCart: 0,
       show: false
     }
   },
