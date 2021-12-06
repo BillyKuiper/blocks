@@ -12,7 +12,8 @@
     "cypress": "^9.1.0",
     "vue": "^3.0.0",
     "vue-axios": "^3.4.0",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "@vue/cli-service": "~4.5.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-router": "~4.5.0",
