@@ -25,6 +25,7 @@
     </tbody>
   </table>
   <button v-if="this.$root.logedIn" @click="confirmOrder" class="btn btn-success">Confirm Order</button>
+  <router-link to="/login" v-else class="btn btn-success">Click here to login</router-link>
 </template>
 
 <script>
@@ -65,6 +66,12 @@ export default {
 </script>
 
 <style scoped>
+.btn btn-success{
+  padding: 0;
+}
+.modal-footer{
+  padding: 0;
+}
 .table{
   width: 80%;
   margin-left: auto;

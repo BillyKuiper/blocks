@@ -16,5 +16,10 @@ export default {
 </script>
 
 <style scoped>
-
+.nav-item{
+  list-style-type: none;
+}
+.btn btn-primary dropdown-toggle{
+  margin-right: 5px;
+}
 </style>

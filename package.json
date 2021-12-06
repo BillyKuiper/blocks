@@ -8,8 +8,9 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "cypress": "^9.1.0",
     "vue": "^3.0.0",
-    "vue-axios": "^3.3.7",
+    "vue-axios": "^3.4.0",
     "vue-router": "^4.0.0-0"
   },
   "devDependencies": {

@@ -9,15 +9,17 @@
   v-on:login="login"
   :logedIn="logedIn"
   />
+  <ChatBox/>
   <Footer/>
 </template>
 <script>
 import Menu from '../src/components/Menu.vue'
 import Footer from '../src/components/Footer.vue'
-
+import ChatBox from "./components/ChatBox";
 export default {
   name: 'App',
   components: {
+    ChatBox,
     Menu,
     Footer
   },
@@ -63,8 +65,13 @@ export default {
     login(data){
       localStorage.setItem('token',data.token);
       this.logedIn = true;
-      this.email = data.email;
+      this.email = data.user.email;
       this.$router.push("/");
+    },
+    emptyCart(){
+      this.Cart = [];
+      this.CartComputed = []
+      this.totalPrice = 0;
     }
   }
 }
@@ -90,4 +97,6 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+
 </style>

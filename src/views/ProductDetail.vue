@@ -1,7 +1,8 @@
 <template>
   <div class="flex-container">
     <div class="product-image">
-      <img :src="require('@/assets/' + product[0].productImage + '')" alt="productimage"/>
+      <img v-if="!product[0].productImage" alt="productimage"/>
+      <img v-else :src="require('@/assets/' + product[0].productImage + '')" alt="productimage"/>
       <br>
       <h1>€{{product[0].productPrice}}</h1>
     </div>
@@ -32,7 +33,7 @@
           <td></td>
           <td>
             <button class="btn btn-primary" @click.self="toCart()">
-              Add to shoppingcart
+              Add to Shoppingcart
             </button>
           </td>
         </tr>
@@ -57,15 +58,16 @@ export default {
     }
   },
   created: function(){
-    this.getProduct()
+    this.product.push({
+      productImage: null,
+    })
+    axios.get('https://localhost:44387/product/' + this.productId)
+        .then((response) => {
+          this.product = [];
+          this.product = response.data;
+        })
   },
   methods:{
-    getProduct(){
-      axios.get('https://localhost:44387/product/' + this.productId)
-          .then((response) => {
-            this.product = response.data;
-          })
-    },
     toCart(){
       //console.log(this.ProductDescription);
       var obj = new Product(this.product[0].productId,this.product[0].productName, this.product[0].productPrice, this.product[0].productImage, this.product[0].productAddingDate, this.product[0].productDiscription);

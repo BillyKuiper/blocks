@@ -11,7 +11,7 @@
         <div class="modal-content">
           <div class="modal-body">
             <h1>Shoppingcart</h1>
-            <table class="table">
+            <table class="table" id="cart">
               <thead>
               <tr>
                 <th scope="col"></th>
@@ -66,11 +66,16 @@ export default {
   computed: {
     totalPrice: Number,
     calculateTotalCart() {
-      this.show = true;
-      for (let i = 0; i < this.shoppingCart.length; i++) {
-        this.totalPriceCart = (this.shoppingCart[i].product.productPrice * this.shoppingCart[i].amount) + this.totalPriceCart;
+      if (this.shoppingCart.length !== 0) {
+        this.show = true;
+        for (let i = 0; i < this.shoppingCart.length; i++) {
+          this.totalPriceCart = (this.shoppingCart[i].product.productPrice * this.shoppingCart[i].amount) + this.totalPriceCart;
+        }
+        console.log(this.totalPriceCart);
       }
-      console.log(this.totalPriceCart);
+      else{
+        this.totalPriceCart = 0;
+      }
     }
   },
   methods:{
@@ -86,7 +91,6 @@ export default {
             }
           }
       )
-
     }
   }
 }
@@ -139,5 +143,8 @@ export default {
 
 .img-cart{
   width: 30px;
+}
+.btn btn-secondary .btn btn-success{
+  margin: 0 !important;
 }
 </style>
