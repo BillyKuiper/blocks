@@ -1,8 +1,19 @@
-#getting base image ubuntu
-FROM ubuntu
+FROM node:16
 
-MAINTAINER billykuiper pal <456181@student.fontys.nl>
+# Create app directory
+WORKDIR /usr/src/app
 
-RUN apt-get update
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package*.json ./
+
+RUN npm install
+# If you are building your code for production
+# RUN npm ci --only=production
+
+# Bundle app source
+COPY . .
+
 EXPOSE 8080
-CMD ["echo", "Hello World...! from my first docker image!"]
+CMD [ "node", "server.js" ]
