@@ -22,6 +22,7 @@ export default {
       axios({
         method: 'post',
         url: 'http://localhost:44319/Account/login',
+        headers: { 'Access-Control-Allow-Origin': '' },
         data: {
           email: email,
           password: password
