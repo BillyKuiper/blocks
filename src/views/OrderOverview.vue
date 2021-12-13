@@ -113,6 +113,7 @@ export default {
       const headers = {
         'Authorization': 'Bearer ' + localStorage.getItem('token')
       }
+      console.log(this.shoppingCart);
       axios.post('https://localhost:44387/Order/order', this.shoppingCart, { headers })
           .then((response) => {
             this.$router.push('/ordersuccess');
