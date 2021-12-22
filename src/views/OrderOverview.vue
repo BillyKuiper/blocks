@@ -95,7 +95,7 @@ export default {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token') //the token is a variable which holds the token
         }
-      })sonar-scanner.bat -D"sonar.projectKey=blocksdotcom" -D"sonar.sources=." -D"sonar.host.url=http://localhost:9000" -D"sonar.login=826d0612f3ad497bbe5b34ad953a5087d714b938"
+      })
         .then((response) => {
           this.firstName = response.data.firstName
           this.lastName = response.data.lastName
