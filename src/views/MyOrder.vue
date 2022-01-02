@@ -5,16 +5,14 @@
     <tr>
       <th scope="col">#OrderNumber</th>
       <th scope="col">Date</th>
-      <th scope="col">Items</th>
       <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
+    <tr v-for="order in orders">
+      <th scope="row">{{order.orderId}}</th>
+      <td>{{order.orderDate}}</td>
+      <td><a class="btn btn-danger" @click="deleteOrder(order.orderId)">Delete</a></td>
     </tr>
     </tbody>
   </table>
@@ -23,17 +21,36 @@
 <script>
 
 import axios from "axios";
-
 export default {
   name: "MyOrder",
-  mounted:
-    this.$nextTick(function () {
-      axios.get('https://localhost:44387/order', {
+  data(){
+    return{
+      orders: []
+    }
+  },
+  created() {
+    axios.get('https://localhost:44387/Order/allOrders', {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('token')}`
+      }
+    }).then((response) => {
+      this.orders = response.data;
+      console.log(this.orders);
+    });
+  },
+  methods:{
+    deleteOrder(orderNO){
+      axios.delete('https://localhost:44387/Order/removeOrder', {
         headers: {
-          'Authorization': `Bearer ${this.getItem('token')}`
-        }
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        data: {orderId: orderNO}
       })
-    })
+      .then(() => {
+        this.$router.push('/');
+      });
+    }
+  }
 }
 </script>
 
