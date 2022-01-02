@@ -91,7 +91,7 @@ export default {
       }
     },
     async getUser(){
-      axios.get('https://localhost:5000/Account/getUser', {
+      axios.get('https://localhost:44319/Account/getUser', {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token') //the token is a variable which holds the token
         }
