@@ -21,7 +21,7 @@ export default {
     async login(email, password){
       axios({
         method: 'post',
-        url: 'http://localhost:5000/Account/login',
+        url: 'https://localhost:44319/Account/login',
         data: {
           email: email,
           password: password
