@@ -1,8 +1,6 @@
 <template>
   <div class="form-group">
     <input class="form-control" placeholder="******" type="password" @input="passwordData" v-model="password">
-    <a class="float-right" href="#">Forgot </a>
-    <label>your password?</label>
   </div>
 </template>
 

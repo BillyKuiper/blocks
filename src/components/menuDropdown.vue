@@ -5,7 +5,7 @@
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
       <router-link class="dropdown-item" to="/myorders" >My Orders</router-link>
-      <a class="dropdown-item" href="#">My Account</a>
+      <router-link class="dropdown-item" to="/changepassword">Change Password</router-link>
     </div>
   </div>
 </template>
