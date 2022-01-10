@@ -69,6 +69,13 @@ const routes = [
     component: function () {
       return import(/* webpackChunkName: "about" */ '../views/MyOrder.vue')},
     props: true
+  },
+  {
+    path: '/changepassword',
+    name: 'Change Password',
+    component: function () {
+      return import(/* webpackChunkName: "about" */ '../views/ChangePassword.vue')},
+    props: true
   }
 ]
 
